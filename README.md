@@ -20,7 +20,8 @@ Frontend	TailwindCSS, htmx, Cytoscape.js
 Algorithms	BFS, DFS, Graph Traversals, Cycle Detection
 System	File scanning, SHA-256 hashing
 🖥️ Screenshots
-<img width="1232" height="788" alt="image" src="https://github.com/user-attachments/assets/abb5ed43-1d37-4826-9cdf-4afaf23ce495" />
+<img width="1380" height="804" alt="image" src="https://github.com/user-attachments/assets/31ddc685-6040-4d26-8268-caeaea05a88f" />
+
 
 📦 Installation & Usage
 1. Clone the repo
