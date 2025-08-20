@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1 class="text-2xl font-semibold mb-2">{{ node.name }}</h1>
+<p class="text-gray-600 mb-4">{{ node.type }} • {{ node.size }} bytes • {{ node.path }}</p>
+
+<div class="flex gap-4 mb-6">
+  <a href="/node/{{ node.id }}/graph/" class="px-3 py-2 rounded-lg bg-black text-white">Graph View</a>
+  <a href="/search/?q={{ node.name }}" class="px-3 py-2 rounded-lg bg-gray-200">Find similar</a>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+  <div class="bg-white border rounded-xl p-4">
+    <h2 class="font-semibold mb-3">Contains (outgoing CONTAINS)</h2>
+    <ul class="space-y-1">
+      {% for e in contains %}
+        <li>
+          <a class="text-blue-700 hover:underline" href="/node/{{ e.dst.id }}/">{{ e.dst.name }}</a>
+          <span class="text-gray-500 text-sm">({{ e.dst.type }})</span>
+        </li>
+      {% empty %}
+        <li class="text-gray-500">—</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="bg-white border rounded-xl p-4">
+    <h2 class="font-semibold mb-3">Incoming edges</h2>
+    <ul class="space-y-1">
+      {% for e in incoming %}
+        <li>
+          <span class="inline-block text-xs bg-gray-200 rounded px-2 py-0.5 mr-2">{{ e.edge_type }}</span>
+          <a class="text-blue-700 hover:underline" href="/node/{{ e.src.id }}/">{{ e.src.name }}</a>
+        </li>
+      {% empty %}
+        <li class="text-gray-500">—</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="bg-white border rounded-xl p-4 md:col-span-2">
+    <h2 class="font-semibold mb-3">Outgoing edges</h2>
+    <ul class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2">
+      {% for e in outgoing %}
+        <li>
+          <span class="inline-block text-xs bg-gray-200 rounded px-2 py-0.5 mr-2">{{ e.edge_type }}</span>
+          <a class="text-blue-700 hover:underline" href="/node/{{ e.dst.id }}/">{{ e.dst.name }}</a>
+        </li>
+      {% empty %}
+        <li class="text-gray-500">—</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endblock %}

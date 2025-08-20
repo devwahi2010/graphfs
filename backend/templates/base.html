@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GraphFS</title>
+  <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/static/css/app.css">
+</head>
+<body class="bg-gray-50 text-gray-900">
+  <header class="border-b bg-white">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+      <a href="/explorer/" class="text-xl font-bold">GraphFS</a>
+      <form action="/search/" method="get" class="flex gap-2 items-center">
+        <input name="q" type="search" placeholder="Search files, dirs, tags..." class="border rounded-lg px-3 py-1 w-64">
+        <button class="px-3 py-1 rounded-lg bg-black text-white">Search</button>
+      </form>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 py-6">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="text-center text-sm text-gray-500 py-6">
+    Built with Django + Postgres • Graph visualization with Cytoscape.js
+  </footer>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>

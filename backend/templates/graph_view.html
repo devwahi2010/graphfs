@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1 class="text-2xl font-semibold mb-4">Graph around: {{ node.name }}</h1>
+
+<div id="cy" class="w-full h-[600px] bg-white border rounded-xl"></div>
+
+<div class="mt-4 flex gap-3">
+  <label>K-hop: </label>
+  <input id="khop" type="number" min="1" value="2" class="border rounded px-2 py-1 w-20">
+  <button id="reload" class="px-3 py-1 rounded-lg bg-black text-white">Reload</button>
+</div>
+
+<script src="https://unpkg.com/cytoscape@3.26.0/dist/cytoscape.min.js"></script>
+<script>
+  const cyDiv = document.getElementById('cy');
+  let cy;
+
+  async function loadGraph(k=2) {
+    const res = await fetch(`/api/nodes/{{ node.id }}/around/?k=${k}`);
+    const data = await res.json();
+    cy = cytoscape({
+      container: cyDiv,
+      elements: data.nodes.concat(data.edges),
+      layout: { name: 'cose' },
+      style: [
+        { selector: 'node[type="FILE"]', style: { 'shape':'rectangle', 'label':'data(label)' } },
+        { selector: 'node[type="DIR"]', style: { 'shape':'round-rectangle', 'label':'data(label)', 'background-color': '#a7f3d0' } },
+        { selector: 'node[type="TAG"]', style: { 'shape':'ellipse', 'label':'data(label)', 'background-color': '#bfdbfe' } },
+        { selector: 'edge', style: { 'curve-style':'bezier', 'target-arrow-shape':'triangle', 'width':2 } }
+      ]
+    });
+  }
+
+  document.getElementById('reload').addEventListener('click', () => {
+    const k = parseInt(document.getElementById('khop').value || '2', 10);
+    loadGraph(k);
+  });
+
+  loadGraph(2);
+</script>
+{% endblock %}

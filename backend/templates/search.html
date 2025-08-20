@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1 class="text-2xl font-semibold mb-4">Search</h1>
+<form action="/search/" method="get" class="flex gap-2 mb-4">
+  <input name="q" value="{{ q }}" class="border rounded px-3 py-1 w-96" placeholder="Search by name or path">
+  <button class="px-3 py-1 rounded bg-black text-white">Go</button>
+</form>
+
+<div class="bg-white border rounded-xl overflow-hidden">
+  <table class="w-full text-left">
+    <thead class="bg-gray-100 text-gray-600 text-sm">
+      <tr>
+        <th class="px-4 py-2">Name</th>
+        <th class="px-4 py-2">Type</th>
+        <th class="px-4 py-2">Path</th>
+        <th class="px-4 py-2">Size</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y">
+      {% for n in results %}
+      <tr class="hover:bg-gray-50">
+        <td class="px-4 py-2"><a class="text-blue-700 hover:underline" href="/node/{{ n.id }}/">{{ n.name }}</a></td>
+        <td class="px-4 py-2">{{ n.type }}</td>
+        <td class="px-4 py-2 text-gray-600">{{ n.path }}</td>
+        <td class="px-4 py-2">{{ n.size }}</td>
+      </tr>
+      {% empty %}
+      <tr><td class="px-4 py-8 text-center text-gray-500" colspan="4">No results</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

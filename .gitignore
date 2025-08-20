@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.env
+.env.*
+venv/
+.venv/
+
+# Django
+/staticfiles/
+/media/
+
+# Node/Tailwind artifacts
+node_modules/
+dist/
+
+# Mac / IDE
+.DS_Store
+.idea/
+.vscode/
+
+# Docker
+*.log
+*.pid
+*.sock
